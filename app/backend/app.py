@@ -153,5 +153,10 @@ def ensure_openai_token():
         openai.api_key = openai_token.token
 
 
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
+
+
 if __name__ == "__main__":
     app.run()
