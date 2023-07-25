@@ -1,10 +1,11 @@
-import { Outlet, NavLink, Link } from "react-router-dom";
+import { Outlet, NavLink, Link, useParams } from "react-router-dom";
 
 import github from "../../assets/github.svg";
 
 import styles from "./Layout.module.css";
 
 const Layout = () => {
+    const { name, company } = useParams();
     return (
         <div className={styles.layout}>
             <header className={styles.header} role={"banner"}>
@@ -14,16 +15,39 @@ const Layout = () => {
                     </Link>
                     <nav>
                         <ul className={styles.headerNavList}>
-                            <li>
-                                <NavLink to="/" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Chat
-                                </NavLink>
-                            </li>
-                            <li className={styles.headerNavLeftMargin}>
-                                <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Ask a question
-                                </NavLink>
-                            </li>
+                            {company && (
+                                <>
+                                    <li>
+                                        <NavLink
+                                            to={`/${company}`}
+                                            className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}
+                                        >
+                                            Chat
+                                        </NavLink>
+                                    </li>
+                                    <li className={styles.headerNavLeftMargin}>
+                                        <NavLink
+                                            to={`/${company}/qa`}
+                                            className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}
+                                        >
+                                            Ask a question
+                                        </NavLink>
+                                    </li>
+                                </>
+                            )}
+                            {name && (
+                                <>
+                                    <li className={styles.headerNavLeftMargin}>
+                                        <NavLink
+                                            to={`/presentation/${name}`}
+                                            target="_blank"
+                                            className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}
+                                        >
+                                            Presentation
+                                        </NavLink>
+                                    </li>
+                                </>
+                            )}
                             <li className={styles.headerNavLeftMargin}>
                                 <a href="https://aka.ms/entgptsearch" target={"_blank"} title="Github repository link">
                                     <img

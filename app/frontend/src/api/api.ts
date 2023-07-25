@@ -1,7 +1,9 @@
 import { AskRequest, AskResponse, ChatRequest } from "./models";
 
+const hostUrl = "https://app-backend-2j5yhqt6og32i.azurewebsites.net";
+//const hostUrl = "";
 export async function askApi(options: AskRequest): Promise<AskResponse> {
-    const response = await fetch("/ask", {
+    const response = await fetch(`${hostUrl}/ask`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -32,7 +34,7 @@ export async function askApi(options: AskRequest): Promise<AskResponse> {
 }
 
 export async function chatApi(options: ChatRequest): Promise<AskResponse> {
-    const response = await fetch("/chat", {
+    const response = await fetch(`${hostUrl}/chat`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
