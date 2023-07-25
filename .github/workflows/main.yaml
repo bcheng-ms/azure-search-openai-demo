@@ -74,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: python-app
-          path: python-app.zip
+          path: app/backend/python-app.zip
   deploy:
     runs-on: ubuntu-latest
     needs: build
