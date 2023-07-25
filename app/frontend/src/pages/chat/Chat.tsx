@@ -16,6 +16,7 @@ import { ClearChatButton } from "../../components/ClearChatButton";
 
 const Chat = () => {
     let { company = "BC" } = useParams();
+    const [temperature, setTemperature] = useState(0.3);
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [promptTemplate, setPromptTemplate] = useState<string>("");
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
@@ -54,6 +55,7 @@ const Chat = () => {
                     promptTemplate: promptTemplate.length === 0 ? undefined : promptTemplate,
                     excludeCategory: excludeCategory.length === 0 ? undefined : excludeCategory,
                     top: retrieveCount,
+                    temperature: temperature,
                     retrievalMode: retrievalMode,
                     semanticRanker: useSemanticRanker,
                     semanticCaptions: useSemanticCaptions,
@@ -101,6 +103,10 @@ const Chat = () => {
 
     const onExcludeCategoryChanged = (_ev?: React.FormEvent, newValue?: string) => {
         setExcludeCategory(newValue || "");
+    };
+
+    const onTemperatureChanged = (_ev?: React.FormEvent, newValue?: string) => {
+        if (newValue && !isNaN(parseFloat(newValue))) setTemperature(parseFloat(newValue));
     };
 
     const onUseSuggestFollowupQuestionsChange = (_ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
@@ -234,6 +240,7 @@ const Chat = () => {
                         onChange={onRetrieveCountChange}
                     />
                     <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
+                    <TextField className={styles.chatSettingsSeparator} label="Temperature" defaultValue={`${temperature}`} onChange={onTemperatureChanged} />
                     <Checkbox
                         className={styles.chatSettingsSeparator}
                         checked={useSemanticRanker}
