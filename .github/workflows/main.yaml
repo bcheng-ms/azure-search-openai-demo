@@ -34,9 +34,11 @@ jobs:
         run: python3 -m pytest
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app/backend
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Python version
         uses: actions/setup-python@v4
         with:
@@ -69,7 +71,6 @@ jobs:
         with:
           name: python-app
           path: |
-            ./app/backend
             !venv/
   deploy:
     runs-on: ubuntu-latest
