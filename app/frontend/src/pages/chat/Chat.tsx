@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Dropdown, IDropdownOption } from "@fluentui/react";
 import { SparkleFilled } from "@fluentui/react-icons";
 
@@ -14,6 +15,7 @@ import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 
 const Chat = () => {
+    let { company = "BC" } = useParams();
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [promptTemplate, setPromptTemplate] = useState<string>("");
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
