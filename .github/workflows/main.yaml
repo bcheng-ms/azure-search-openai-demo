@@ -62,7 +62,7 @@ jobs:
 
       - name: Build Frontend
         run: |
-          cd app/frontend
+          cd ../frontend
           npm install
           npm run build
       # Optional: Add a step to run tests here (PyTest, Django test suites, etc.)
