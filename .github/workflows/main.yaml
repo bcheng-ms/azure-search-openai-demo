@@ -93,8 +93,8 @@ jobs:
           rm python-app.zip
       - name: Logging in to Azure
         uses: Azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@85270a1854658d167ab239bce43949edb336fa7c
