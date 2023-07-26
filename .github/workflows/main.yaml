@@ -88,16 +88,22 @@ jobs:
         with:
           name: python-app
           path: .
-      - run: |
-          unzip python-app.zip
-          rm python-app.zip
+      # - run: |
+      #     unzip python-app.zip
+      #     rm python-app.zip
       - name: Logging in to Azure
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: "Deploy to Azure Web App"
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@85270a1854658d167ab239bce43949edb336fa7c
+      - name: Azure CLI script
+        uses: azure/CLI@v1
         with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          azcliversion: 2.30.0
+          inlineScript: |
+            az webapp deploy --resource-group rg-bc-openai --name app-backend-2j5yhqt6og32i --src-path python-app.zip
+      # - name: "Deploy to Azure Web App"
+      #   id: deploy-to-webapp
+      #   uses: azure/webapps-deploy@85270a1854658d167ab239bce43949edb336fa7c
+      #   with:
+      #     app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+      #     package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
