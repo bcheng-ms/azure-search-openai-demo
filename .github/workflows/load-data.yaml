@@ -30,6 +30,11 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           architecture: x64
+      - name: Install azd
+        uses: Azure/setup-azd@v0.1.0
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Run Prep Docs
         run: |
           echo 'Creating python virtual environment "scripts/.venv"'
