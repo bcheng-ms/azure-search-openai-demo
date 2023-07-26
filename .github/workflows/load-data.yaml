@@ -1,0 +1,27 @@
+name: Test, Build, and Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      searchIndex:
+        description: "Search Index"
+        required: true
+        type: text
+
+env:
+  PYTHON_VERSION: "3.10"
+
+jobs:
+  load_and_index:
+    name: "Load data and create Search Index"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          architecture: x64
+      - name: Run Prep Docs
+        run: |
+          ./scripts/prepdocs.sh
