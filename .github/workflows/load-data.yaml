@@ -1,4 +1,4 @@
-name: Test, Build, and Deploy
+name: Load and Index
 
 on:
   workflow_dispatch:
