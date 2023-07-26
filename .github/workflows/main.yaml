@@ -103,7 +103,8 @@ jobs:
       #       az webapp deploy --resource-group rg-bc-openai --name app-backend-2j5yhqt6og32i --src-path python-app.zip
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@85270a1854658d167ab239bce43949edb336fa7c
+        uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          app-name: "app-backend-2j5yhqt6og32i"
+          slot-name: "production"
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
