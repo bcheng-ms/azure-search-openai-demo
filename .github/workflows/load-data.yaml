@@ -10,6 +10,14 @@ on:
 
 env:
   PYTHON_VERSION: "3.10"
+  AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT}}
+  AZURE_STORAGE_CONTAINER: ${{ secrets.AZURE_STORAGE_CONTAINER}}
+  AZURE_SEARCH_SERVICE: ${{ secrets.AZURE_SEARCH_SERVICE}}
+  AZURE_OPENAI_SERVICE: ${{ secrets.AZURE_OPENAI_SERVICE}}
+  AZURE_OPENAI_EMB_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_EMB_DEPLOYMENT}}
+  AZURE_SEARCH_INDEX: ${{ github.event.inputs.searchIndex }}
+  AZURE_FORMRECOGNIZER_SERVICE: ${{ secrets.AZURE_FORMRECOGNIZER_SERVICE}}
+  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID}}
 
 jobs:
   load_and_index:
@@ -24,4 +32,4 @@ jobs:
           architecture: x64
       - name: Run Prep Docs
         run: |
-          ./scripts/prepdocs.sh
+          ./scripts/devops-prepdocs.sh
