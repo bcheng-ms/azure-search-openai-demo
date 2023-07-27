@@ -137,6 +137,22 @@ def chat():
         impl = chat_approaches.get(approach)
         if not impl:
             return jsonify({"error": "unknown approach"}), 400
+        # look for index override and create a new search client if there is a new index
+        overrides = request.json.get("overrides")
+        search_index = overrides.get('search_index')
+        if search_index:
+            logging.debug("Found new search index", search_index)
+            new_search_client = SearchClient(
+                endpoint=f"https://{AZURE_SEARCH_SERVICE}.search.windows.net",
+                index_name=search_index,
+                credential=azure_credential)
+            impl = ChatReadRetrieveReadApproach(new_search_client,
+                                                AZURE_OPENAI_CHATGPT_DEPLOYMENT,
+                                                AZURE_OPENAI_CHATGPT_MODEL,
+                                                AZURE_OPENAI_EMB_DEPLOYMENT,
+                                                KB_FIELDS_SOURCEPAGE,
+                                                KB_FIELDS_CONTENT)
+            logging.debug("Overrode impl")
         r = impl.run(request.json["history"],
                      request.json.get("overrides") or {})
         return jsonify(r)

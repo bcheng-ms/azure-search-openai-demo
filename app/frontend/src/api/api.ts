@@ -1,7 +1,7 @@
 import { AskRequest, AskResponse, ChatRequest } from "./models";
 
-const hostUrl = "https://app-backend-2j5yhqt6og32i.azurewebsites.net";
-//const hostUrl = "";
+//const hostUrl = "https://app-backend-2j5yhqt6og32i.azurewebsites.net";
+const hostUrl = "";
 export async function askApi(options: AskRequest): Promise<AskResponse> {
     const response = await fetch(`${hostUrl}/ask`, {
         method: "POST",
@@ -46,6 +46,7 @@ export async function chatApi(options: ChatRequest): Promise<AskResponse> {
                 retrieval_mode: options.overrides?.retrievalMode,
                 semantic_ranker: options.overrides?.semanticRanker,
                 semantic_captions: options.overrides?.semanticCaptions,
+                search_index: options.overrides?.searchIndex,
                 top: options.overrides?.top,
                 temperature: options.overrides?.temperature,
                 prompt_template: options.overrides?.promptTemplate,

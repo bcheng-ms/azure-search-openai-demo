@@ -17,6 +17,7 @@ export type AskRequestOverrides = {
     excludeCategory?: string;
     top?: number;
     temperature?: number;
+    searchIndex?: string;
     promptTemplate?: string;
     promptTemplatePrefix?: string;
     promptTemplateSuffix?: string;
