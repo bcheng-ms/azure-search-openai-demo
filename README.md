@@ -109,6 +109,13 @@ This demo has been modified to add custom indexes. This allows the user to be ab
     a. Choose the branch you created.
     b. Enter a name for the index.
 1.  Start the workflow.
+1.  Once the workflow has run successfully, you can use it in your demo. Open a browser and go to the Open AI demo.
+1.  Open the `Developer Settings` panel.
+1.  In the `Search Index` field, add the name of the search index you created.
+1.  Close the `Developer Settings` panel.
+1.  Any API calls to `/chat` will now use the new search index.
+
+> Note: The `/ask` API has not yet been modified.
 
 #### Sharing Environments
 

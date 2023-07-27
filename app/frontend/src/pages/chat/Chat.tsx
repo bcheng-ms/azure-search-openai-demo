@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Dropdown, IDropdownOption } from "@fluentui/react";
 import { SparkleFilled } from "@fluentui/react-icons";
 
@@ -15,7 +14,6 @@ import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 
 const Chat = () => {
-    let { company = "BC" } = useParams();
     const [temperature, setTemperature] = useState(0.3);
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [promptTemplate, setPromptTemplate] = useState<string>("");
@@ -24,6 +22,7 @@ const Chat = () => {
     const [useSemanticRanker, setUseSemanticRanker] = useState<boolean>(true);
     const [useSemanticCaptions, setUseSemanticCaptions] = useState<boolean>(false);
     const [excludeCategory, setExcludeCategory] = useState<string>("");
+    const [searchIndex, setSearchIndex] = useState<string>("");
     const [useSuggestFollowupQuestions, setUseSuggestFollowupQuestions] = useState<boolean>(false);
 
     const lastQuestionRef = useRef<string>("");
@@ -54,6 +53,7 @@ const Chat = () => {
                 overrides: {
                     promptTemplate: promptTemplate.length === 0 ? undefined : promptTemplate,
                     excludeCategory: excludeCategory.length === 0 ? undefined : excludeCategory,
+                    searchIndex: searchIndex.length === 0 ? undefined : searchIndex,
                     top: retrieveCount,
                     temperature: temperature,
                     retrievalMode: retrievalMode,
@@ -103,6 +103,10 @@ const Chat = () => {
 
     const onExcludeCategoryChanged = (_ev?: React.FormEvent, newValue?: string) => {
         setExcludeCategory(newValue || "");
+    };
+
+    const onSearchIndexChanged = (_ev?: React.FormEvent, newValue?: string) => {
+        setSearchIndex(newValue || "");
     };
 
     const onTemperatureChanged = (_ev?: React.FormEvent, newValue?: string) => {
@@ -241,6 +245,7 @@ const Chat = () => {
                     />
                     <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
                     <TextField className={styles.chatSettingsSeparator} label="Temperature" defaultValue={`${temperature}`} onChange={onTemperatureChanged} />
+                    <TextField className={styles.chatSettingsSeparator} label="Search Index" defaultValue={`${searchIndex}`} onChange={onSearchIndexChanged} />
                     <Checkbox
                         className={styles.chatSettingsSeparator}
                         checked={useSemanticRanker}
