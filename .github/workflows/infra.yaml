@@ -1,7 +1,16 @@
 name: Deploy Infrastructure
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Name of the app"
+        default: "app-frontend"
+      resourceGroup:
+        description: "Resource Group"
+        default: "rg-bc-openai"
+      location:
+        description: "Location of the resource group"
+        default: "eastus"
 
 jobs:
   deploy-infrastructure:
