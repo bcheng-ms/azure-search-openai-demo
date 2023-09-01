@@ -33,7 +33,7 @@ jobs:
           pip install -r requirements-dev.txt
       - name: Run Python tests
         run: python3 -m pytest
-  build:
+  build-backend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -61,11 +61,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Build Frontend
-        run: |
-          cd ../frontend
-          npm install
-          npm run build
       - name: Zip it!
         run: |
           cd ../backend
@@ -76,9 +71,55 @@ jobs:
         with:
           name: python-app
           path: app/backend/python-app.zip
-  deploy:
+  build-frontend:
     runs-on: ubuntu-latest
-    needs: build
+    defaults:
+      run:
+        working-directory: app/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Frontend
+        run: |
+          npm install
+          npm run build
+      - name: Zip App
+        run: |
+          cd build
+          zip -r frontend.zip .
+      - name: Upload artifact for app 1
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend
+          path: app/frontend/build/frontend.zip
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    needs: build-frontend
+    environment:
+      name: "production"
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend
+          path: .
+      - run: |
+          unzip frontend.zip
+          rm frontend.zip
+      - name: Logging in to Azure
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: "Deploy to Azure Web App"
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_FRONTEND_WEBAPP_NAME }}
+          slot-name: "production"
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+  deploy-backend:
+    runs-on: ubuntu-latest
+    needs: build-backend
     environment:
       name: "production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
