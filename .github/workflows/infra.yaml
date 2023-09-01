@@ -1,0 +1,43 @@
+name: Deploy Infrastructure
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Name of the app"
+        default: "app-frontend"
+      resourceGroup:
+        description: "Resource Group"
+        default: "rg-bc-openai"
+      location:
+        description: "Location of the resource group"
+        default: "eastus"
+
+jobs:
+  deploy-infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code
+      - uses: actions/checkout@main
+
+        # Log into Azure
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Create resource group
+        uses: Azure/CLI@v1
+        with:
+          inlineScript: |
+            #!/bin/bash
+            az group create --name ${{ github.event.inputs.resourceGroup }} --location ${{ github.event.inputs.location }}
+            echo "Azure resource group created"
+
+        # Deploy Bicep file
+      - name: Deploy app service
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+          template: ./biceps/appservice.bicep
+          parameters: "webAppName=${{github.event.inputs.name}}"
+          failOnStdErr: false
