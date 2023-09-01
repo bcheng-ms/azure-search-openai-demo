@@ -3,10 +3,12 @@ name: Test, Build, and Deploy
 on:
   push:
     branches: [main]
+    paths:
+      - app/backend
   pull_request:
     branches: [main]
-  paths:
-    - app/backend
+    paths:
+      - app/backend
 env:
   PYTHON_VERSION: "3.10"
   NODE_VERSION: "16.20"

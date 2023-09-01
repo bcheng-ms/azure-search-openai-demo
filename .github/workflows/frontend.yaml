@@ -3,10 +3,12 @@ name: Test, Build, and Deploy
 on:
   push:
     branches: [main]
+    paths:
+      - app/frontend
   pull_request:
     branches: [main]
-  paths:
-    - app/frontend
+    paths:
+      - app/frontend
 
 env:
   PYTHON_VERSION: "3.10"
