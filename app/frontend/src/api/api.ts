@@ -1,7 +1,7 @@
 import { AskRequest, AskResponse, ChatRequest } from "./models";
 
 //const hostUrl = "https://app-backend-2j5yhqt6og32i.azurewebsites.net";
-const hostUrl = "";
+const hostUrl = "https://backend.newwayto.work";
 export async function askApi(options: AskRequest): Promise<AskResponse> {
     const response = await fetch(`${hostUrl}/ask`, {
         method: "POST",
