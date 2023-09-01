@@ -1,7 +1,7 @@
 param webAppName string
 param uniqueEnding string = uniqueString(webAppName)
 param sku string = 'B1' // The SKU of App Service Plan
-param linuxFxVersion string = 'node|18-lts' // The runtime stack of web app
+param linuxFxVersion string = 'node|16.20' // The runtime stack of web app
 param location string = resourceGroup().location // Location for all resources
 
 var appServicePlanName = toLower('AppServicePlan-${webAppName}')
