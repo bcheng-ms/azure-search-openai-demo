@@ -1,14 +1,14 @@
-name: Test, Build, and Deploy
+name: Frontend Deploy
 
 on:
   push:
     branches: [main]
     paths:
-      - app/frontend
+      - "app/frontend/**"
   pull_request:
     branches: [main]
     paths:
-      - app/frontend
+      - "app/frontend/**"
 
 env:
   PYTHON_VERSION: "3.10"

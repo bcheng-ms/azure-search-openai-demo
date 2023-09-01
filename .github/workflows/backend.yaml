@@ -1,14 +1,14 @@
-name: Test, Build, and Deploy
+name: Backend Deploy
 
 on:
   push:
     branches: [main]
     paths:
-      - app/backend
+      - "app/backend/**"
   pull_request:
     branches: [main]
     paths:
-      - app/backend
+      - "app/backend/**"
 env:
   PYTHON_VERSION: "3.10"
   NODE_VERSION: "16.20"
