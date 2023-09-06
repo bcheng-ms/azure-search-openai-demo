@@ -33,6 +33,14 @@ const Layout = () => {
                                             Ask a question
                                         </NavLink>
                                     </li>
+                                    <li className={styles.headerNavLeftMargin}>
+                                        <NavLink
+                                            to={`/protected`}
+                                            className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}
+                                        >
+                                            Login
+                                        </NavLink>
+                                    </li>
                                 </>
                             )}
                             {name && (
