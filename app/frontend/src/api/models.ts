@@ -22,6 +22,7 @@ export type AskRequestOverrides = {
     promptTemplatePrefix?: string;
     promptTemplateSuffix?: string;
     suggestFollowupQuestions?: boolean;
+    bearerToken?: any;
 };
 
 export type AskRequest = {

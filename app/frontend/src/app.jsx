@@ -44,7 +44,7 @@ const App = () => {
                     </Route>
                     <Route path="/login" element={<Login />} />
                     <Route path="/login/callback" element={<LoginCallback />} />
-                    <Route path="/" element={<Layout />}>
+                    <Route path="/" element={<Authenticated success={<Layout />} loading={<Loading />} />}>
                         <Route path="/" element={<GetStarted />} />
                         <Route path=":company/qa" element={<OneShot />} />
                         <Route path=":company" element={<Chat />} />

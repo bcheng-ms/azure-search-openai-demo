@@ -6,7 +6,8 @@ export async function askApi(options: AskRequest): Promise<AskResponse> {
     const response = await fetch(`${hostUrl}/ask`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${options.overrides?.bearerToken}`
         },
         body: JSON.stringify({
             question: options.question,
@@ -37,7 +38,8 @@ export async function chatApi(options: ChatRequest): Promise<AskResponse> {
     const response = await fetch(`${hostUrl}/chat`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${options.overrides?.bearerToken}`
         },
         body: JSON.stringify({
             history: options.history,
@@ -67,5 +69,5 @@ export async function chatApi(options: ChatRequest): Promise<AskResponse> {
 }
 
 export function getCitationFilePath(citation: string): string {
-    return `/content/${citation}`;
+    return `${hostUrl}/content/${citation}`;
 }
