@@ -11,6 +11,9 @@
   "dependencies": {
     "@fluentui/react": "^8.110.7",
     "@fluentui/react-icons": "^2.0.206",
+    "@okta/okta-auth-js": "^7.4.2",
+    "@okta/okta-react": "^6.7.0",
+    "@okta/okta-signin-widget": "^7.9.1",
     "@react-spring/web": "^9.7.3",
     "dompurify": "^3.0.4",
     "react": "^18.2.0",
